@@ -1,5 +1,5 @@
-#ifndef APLICATIE_H
-#define APLICATIE_H
+#ifndef Application_H
+#define Application_H
 
 #include <iostream>
 #include <string>
