@@ -26,3 +26,15 @@ Application::Application(const Application& other)
         std::cout << " Creating a copy of " << other.name << "\n";
 }
 
+Application& Application::operator=(const Application& obj)
+{
+    if (this == &obj)
+        return *this;
+    (*this).name=obj.name;
+    (*this).developer=obj.developer;
+    (*this).version=obj.version;
+    (*this).sizeMB=obj.sizeMB;
+
+    return *this;
+}
+
