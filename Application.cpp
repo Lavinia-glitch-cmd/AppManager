@@ -38,3 +38,5 @@ Application& Application::operator=(const Application& obj)
     return *this;
 }
 
+Application::~Application(){}
+
