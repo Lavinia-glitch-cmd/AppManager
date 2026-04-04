@@ -19,11 +19,12 @@ class Application {
         virtual ~Application();
         friend std::ostream& operator<<(std::ostream& os, const Application& obj);
         friend std::ostream& operator>>(std::istream& is, Application& obj);
+        
+        std::string getName() const { return name; }
+        float getVersion() const { return version; }
+
         virtual void launchApp() = 0;
         virtual void displayDetails() = 0;
-        std::string getName() const { return name; }
-        float getVersion() const {return version; }
-
 
 };
 #endif
