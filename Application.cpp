@@ -10,6 +10,7 @@ Application::Application()
 
 Application::Application(std::string name,std::string type, std::string developer, float version, int sizeMB) 
     : name(name), 
+      type(type),
       developer(developer), 
       version(version), 
       sizeMB(sizeMB)
