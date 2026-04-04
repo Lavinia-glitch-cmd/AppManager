@@ -40,3 +40,21 @@ Application& Application::operator=(const Application& obj)
 
 Application::~Application(){}
 
+std::ostream& operator<<(std::ostream& os, const Application& obj)
+{
+    os << "Application: " << obj.name<< " | Developer: " << obj.developer<< " | v" << obj.version << " | Size: " << obj.sizeMB<< "MB";
+    return os;
+}
+
+std::ostream& operator>>(std::istream& is, Application& obj);
+{
+    std::cout << "Enter name: ";
+    is >> obj.name;
+    std::cout << "Enter developer: ";
+    is >> obj.developer;
+    std::cout << "Enter version: ";
+    is >> obj.version;
+    std::cout << "Enter size: ";
+    is >> obj.sizeInMB;
+}
+        
