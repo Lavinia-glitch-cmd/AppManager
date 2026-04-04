@@ -5,6 +5,7 @@
 #include "Application.h"
 class Social:virtual public Application{
     protected:
+        bool reels;
         int users;
         std::string privacy;
         bool ads;
@@ -14,7 +15,7 @@ class Social:virtual public Application{
 
     public:
         Social();
-        Social(std::string n, std::string d, float v, int s, int u, std::string p, bool a, float m, bool b, std::string c);
+        Social(std::string name, std::string developer,float version, int sizeMB, int users, std::string privacy, bool ads, float membership, bool blue_check, std::string category, bool reels);
         Social(const Social& obj);
         Social& operator=(const Social& obj);
         virtual ~Social();
