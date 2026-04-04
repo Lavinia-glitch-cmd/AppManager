@@ -7,13 +7,14 @@
 class Application {
     protected:
         std::string name;
+        std::string type;
         std::string developer;
         float version;
         int sizeMB;
 
     public:
         Application();
-        Application(std::string name, std::string developer, float version, int sizeMB);
+        Application(std::string name,std::string type, std::string developer, float version, int sizeMB);
         Application(const Application& obj);
         Application& operator=(const Application& obj);
         virtual ~Application();
@@ -22,6 +23,8 @@ class Application {
         
         std::string getName() const { return name; }
         float getVersion() const { return version; }
+        void setName(std::string name) {name = name; }
+        void setVersion(float version) {version = version; }
 
         virtual void launchApp() = 0;
         virtual void displayDetails() = 0;
