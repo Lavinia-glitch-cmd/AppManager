@@ -15,15 +15,7 @@ Social::Social(const Social& obj)
       category(obj.category)
 {}
 
-Social::Social(const Social& obj) 
-    : Application(obj), 
-      users(obj.users), 
-      privacy(obj.privacy), 
-      ads(obj.ads), 
-      membership(obj.membership), 
-      blue_check(obj.blue_check),
-      category(obj.category)
-{}
+
 Social& Social::operator=(const Social& obj) {
     if (this != &obj) {
         Application::operator=(obj);

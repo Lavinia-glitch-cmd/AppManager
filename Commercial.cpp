@@ -37,7 +37,7 @@ void Commercial::launch() {
     std::cout << "Marketplace active with " << inventory << " products." << std::endl;
 }
 
-void Commercial::displayDetails() const {
+void Commercial::displayDetails() {
     std::cout << "Commercial App: " << name << " | Merchant: " << merchantType 
               << " | Commision: " << commision << "% | Total Volume: " << total << std::endl;
 }

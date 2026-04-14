@@ -18,7 +18,7 @@ Application::Application(std::string name,std::string type, std::string develope
 
 Application::Application(const Application& other) 
     : name(other.name), 
-      type("other.type"),
+      type(other.type),
       developer(other.developer), 
       version(other.version), 
       sizeMB(other.sizeMB) 
@@ -47,7 +47,7 @@ std::ostream& operator<<(std::ostream& os, const Application& obj)
     return os;
 }
 
-std::ostream& operator>>(std::istream& is, Application& obj)
+std::istream& operator>>(std::istream& is, Application& obj)
 {
     std::cout << "Enter name: ";
     is >> obj.name;
@@ -59,4 +59,5 @@ std::ostream& operator>>(std::istream& is, Application& obj)
     is >> obj.version;
     std::cout << "Enter size: ";
     is >> obj.sizeMB;
+    return is;
 }       
