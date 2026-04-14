@@ -24,8 +24,7 @@ class Commercial: virtual public Application
       friend std::ostream& operator<<(std::ostream& os, const Commercial& obj);
       friend std::istream& operator>>(std::istream& is, Commercial& obj);
       
-      void launch() override;
-      void displayDetails() override;
+      void displayDetails() const =0;
 };
 
 #endif
