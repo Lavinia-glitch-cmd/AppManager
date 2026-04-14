@@ -34,7 +34,7 @@ void AppManager::displayAll() const {
         return;
     }
     for (auto p : profiles) {
-        p->display(); // Polimorfism: apeleaza display() din derivata corecta
+        p->display(); 
         std::cout << "-----------------------------\n";
     }
 }
