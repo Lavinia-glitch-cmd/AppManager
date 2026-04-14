@@ -14,7 +14,7 @@ class Profile {
         Application* app;
     public:
         Profile();
-        Profile(std::string u="", std::string p="");
+        Profile(Application *a, std::string u="", std::string p="");
         Profile(const Profile &obj);
         Profile& operator=(const Profile &obj);
         virtual ~Profile();
@@ -24,9 +24,8 @@ class Profile {
 
         virtual void readData()=0;
         virtual void display() const =0;
-        void setApp(Application* app) {this-> app= app;} 
-        void createSocialAccount();
-        void createCommercialAccount();
+        void setApp(Application* a) { this->app = a; }
+        Application* getApp() const { return app; } 
 };
 
 #endif
