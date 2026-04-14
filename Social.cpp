@@ -33,10 +33,7 @@ Social& Social::operator=(const Social& obj) {
 Social::~Social() {}
 
 
-void Social::launch() {
-    std::cout << "Starting " << name << "..." << std::endl;
-    std::cout << "Loading feed for " << users << " active users." << std::endl;
-}
+
 
 void Social::displayDetails() const {
     std::cout << "Social App Name: " << name << " | Privacy: " << privacy<< " | Verified: " <<blue_check << "|Has adds ? "<<ads<<std::endl;
