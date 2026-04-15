@@ -6,7 +6,7 @@
 
 class CommercialProfile : public Profile{
     private:
-        std::string shippingAddres;
+        std::string shippingAddress;
         std::string bankName;
         float balance;
         bool Premium;
