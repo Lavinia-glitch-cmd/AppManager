@@ -6,10 +6,7 @@ SocialProfile::SocialProfile() : Profile(), hasReels(false), wantsMembership(fal
                     friendsCount(0), bio("") {}
 
 void SocialProfile::readData() {
-    std::cout << "Enter username: ";
-    std::cin >> std::ws;
-    std::getline(std::cin, username);
-
+    
     std::cout << "Enter password: ";
     std::getline(std::cin, password);
 

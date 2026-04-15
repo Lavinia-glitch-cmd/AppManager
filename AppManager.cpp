@@ -8,13 +8,29 @@ AppManager::AppManager() {}
 AppManager::~AppManager() {}
 
 void AppManager::addSocialAccount() {
+    std::string tempUser;
+    bool unique = false;
+    while (!unique) {
+        std::cout << "Introduceti username: ";
+        std::cin >> std::ws;
+        std::getline(std::cin, tempUser);
+
+        unique = true; 
+        for (auto p : profiles) {
+            if (p->getUsername() == tempUser) {
+                std::cout << "[Eroare] Username-ul deja exista! Incearca altul.\n";
+                unique = false; 
+                break;
+            }
+        }
+    }
     Social* sApp = new Social();
     SocialProfile* sProf = new SocialProfile();
 
+    sProf->setUsername(tempUser); 
+
     std::cin >> *sApp;
-
     sProf->setApp(sApp);
-
     sProf->readData(); 
 
     apps.push_back(sApp);
