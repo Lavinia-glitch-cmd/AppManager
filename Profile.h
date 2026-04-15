@@ -21,11 +21,13 @@ class Profile {
         friend std::ostream& operator<<(std::ostream& os, const Profile& obj);
         
         std::string getUsername() const { return username; }
+        std::string getPassword() const { return password; }
+        Application* getApp() const { return app; } 
+
         void setUsername(std::string u) { username = u; }
         virtual void readData()=0;
-        virtual void display() const =0;
+        virtual void display() const=0;
         void setApp(Application* a) { this->app = a; }
-        Application* getApp() const { return app; } 
 };
 
 #endif

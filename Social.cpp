@@ -16,7 +16,9 @@ Social::~Social() {}
 void Social::displayDetails() const {
     std::cout << "Social App: " << name << std::endl;
 }
-
+void Social::display() const {
+    std::cout<<*this<<std::endl;
+}
 std::ostream& operator<<(std::ostream& os, const Social& obj) {
     os << "Social App Name: " << obj.name;
     return os;

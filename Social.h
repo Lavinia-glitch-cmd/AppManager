@@ -17,7 +17,7 @@ class Social : virtual public Application {
 
         friend std::ostream& operator<<(std::ostream& os, const Social& obj);
         friend std::istream& operator>>(std::istream& is, Social& obj);
-
+        void display() const override;
         void displayDetails() const override;
 };
 

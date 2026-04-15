@@ -1,30 +1,36 @@
 #ifndef Commercial_H
 #define Commercial_H
+
 #include <iostream>
 #include <string>
+#include <vector>
 #include "Application.h"
 
-class Commercial: virtual public Application
+class Commercial : virtual public Application
 {
   protected:
-    int inventory;
-    float commision;
-    bool escrowEnabled;
-    std::string merchantType;
-    int activeAds;
-    double total;
+    std::vector<std::string> inventory; 
+    float premiumDiscount;             
+    int shippingThreshold;            
+    std::string region;                
+    bool acceptsReturns;               
     
-    public:
-      Commercial();
-      Commercial(std::string name, std::string type, std::string developer, float version, int sizeMB, int inventory, float commision, bool escrowEnabled, std::string merchantType, int activeAds, double total);
-      Commercial(const Commercial& obj);
-      Commercial& operator=(const Commercial& obj);
-      virtual ~Commercial();
-      
-      friend std::ostream& operator<<(std::ostream& os, const Commercial& obj);
-      friend std::istream& operator>>(std::istream& is, Commercial& obj);
-      
-      void displayDetails() const =0;
+  public:
+    Commercial();
+    Commercial(std::string name, std::string developer, float version, int sizeMB, 
+               std::vector<std::string> inv, float discount, int threshold, 
+               std::string reg, bool returns);
+    
+    Commercial(const Commercial& obj);
+    Commercial& operator=(const Commercial& obj);
+    virtual ~Commercial();
+    
+    friend std::ostream& operator<<(std::ostream& os, const Commercial& obj);
+    friend std::istream& operator>>(std::istream& is, Commercial& obj);
+    
+    void displayDetails() const;
+    void display() const override;
+    bool hasProduct(std::string productName) const;
 };
 
 #endif

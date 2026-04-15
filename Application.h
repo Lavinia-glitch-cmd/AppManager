@@ -26,7 +26,7 @@ class Application {
         void setName(std::string name) {this->name = name; }
         void setVersion(float version) {this->version = version; }
 
-        
+        virtual void display() const=0;
         virtual void displayDetails() const = 0;
 
 };

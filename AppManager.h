@@ -19,7 +19,10 @@ class AppManager{
 
         void runMenu();
         void menuCreareCont();
-        void displayAll() const;
+        void displayAllProfiles() const;
+        void displayAllApps() const;
+        void login();
+        void createApp();
 
 };
 

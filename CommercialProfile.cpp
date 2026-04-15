@@ -24,12 +24,13 @@ void CommercialProfile::readData() {
 }
 void CommercialProfile::display() const
 {
+    std::cout << "Username: " << username << "\n";
     std::cout << "Bank: " << bankName << "\n";
-    std::cout << "Balance: " << balance << " USD\n";
-    std::cout << "Shipping to: " << shippingAddress << "\n";
-    std::cout << "Premium: " << (Premium ? "Premium/Prime Member" : "Standard Account") << "\n";
+    std::cout << "Balance: " << balance << "\n";
+    std::cout << "Shipping Address: " << shippingAddress << "\n";
+    std::cout << "Status: " << (Premium ? "Premium/Prime Member" : "Standard Account") << "\n";
     
     if (app != nullptr) {
-        std::cout << "Connected via: " << app->getName() << "\n";
+        std::cout << "App Platform: " << app->getName() << "\n";
     }
 }
