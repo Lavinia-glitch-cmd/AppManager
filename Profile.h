@@ -19,7 +19,6 @@ class Profile {
         Profile& operator=(const Profile &obj);
         virtual ~Profile();
         friend std::ostream& operator<<(std::ostream& os, const Profile& obj);
-        friend std::istream& operator>>(std::istream& is, Profile& obj);
         
 
         virtual void readData()=0;

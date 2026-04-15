@@ -18,6 +18,7 @@ class AppManager{
         ~AppManager();
 
         void runMenu();
+        void menuCreareCont();
         void displayAll() const;
 
 };

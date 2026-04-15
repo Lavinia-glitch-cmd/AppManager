@@ -32,10 +32,6 @@ Commercial& Commercial::operator=(const Commercial& obj) {
 
 Commercial::~Commercial() {}
 
-void Commercial::launch() {
-    std::cout << "Starting Commercial Store: " << name << "..." << std::endl;
-    std::cout << "Marketplace active with " << inventory << " products." << std::endl;
-}
 
 void Commercial::displayDetails() const {
     std::cout << "Commercial App: " << name << " | Merchant: " << merchantType 
