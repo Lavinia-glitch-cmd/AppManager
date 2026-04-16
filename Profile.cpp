@@ -37,3 +37,16 @@ std::ostream& operator<<(std::ostream& os, const Profile& obj)
     }
     return os;
 }
+
+void Profile::readData() {
+    std::string tempPass;
+    while (true) {
+        std::cout << "Enter password (min. 8 chars): ";
+        std::cin >> tempPass;
+        if (tempPass.length() >= 8) {
+            this->password = tempPass;
+            break;
+        }
+        std::cout << "[Eroare] Parola prea scurta! Ai nevoie de 8 caractere.\n";
+    }
+}

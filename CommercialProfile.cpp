@@ -4,11 +4,41 @@ CommercialProfile::CommercialProfile()
     : Profile(), shippingAddress(""), bankName(""), 
     balance(0.0f), Premium(false)
      {}
+    
+
+CommercialProfile::~CommercialProfile() {}
+CommercialProfile::CommercialProfile(const CommercialProfile& obj) : shippingAddress(obj.shippingAddress), bankName(obj.bankName), balance(obj.balance), Premium(obj.Premium) {}
+CommercialProfile& CommercialProfile::operator=(const CommercialProfile& obj) 
+{
+    if (this == &obj)
+        return *this;
+    this->shippingAddress=obj.shippingAddress;
+    this->bankName=obj.bankName;
+    this->balance=obj.balance;
+    this->Premium=obj.Premium;
+    return *this;
+}
+
+std::ostream& operator<<(std::ostream& os, const CommercialProfile &obj)
+{
+    os << "Shipping Address: " << obj.shippingAddress<<"Bank Name: " << obj.bankName<< " | Balance" << obj.balance << " | Premium version: " << obj.Premium;
+    return os;
+}
+std::istream& operator>>(std::istream &is, CommercialProfile &obj)
+{
+    std::cout << "Enter Shipping Address : ";
+    is >> obj.shippingAddress;
+    std::cout << "Enter Bank Name: ";
+    is >> obj.bankName;
+    std::cout << "Enter Balance: ";
+    is >> obj.balance;
+    std::cout << "Enter premium: ";
+    is >> obj.Premium;
+    return is;
+}
 
 void CommercialProfile::readData() {
-    std::cout << "Password: ";
-    std::cin >> std::ws;
-    std::getline(std::cin, password);
+    Profile::readData();
 
     std::cout << "Adresa de livrare: ";
     std::getline(std::cin, shippingAddress);

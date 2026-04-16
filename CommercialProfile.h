@@ -12,8 +12,14 @@ class CommercialProfile : public Profile{
         bool Premium;
     public:
         CommercialProfile();
+        ~CommercialProfile();
+        CommercialProfile(const CommercialProfile& obj);
+        CommercialProfile& operator=(const CommercialProfile& obj);
 
+        friend std::ostream& operator<<(std::ostream& os, const CommercialProfile &obj);
+        friend std::istream& operator>>(std::istream &is, CommercialProfile &obj);
         void readData() override;
+
         void display() const override;
 };
 

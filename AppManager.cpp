@@ -52,22 +52,25 @@ void AppManager::createApp() {
 
 void AppManager::addSocialAccount() {
     std::string targetAppName, tempUser;
-    
-    std::cout << "Numele retelei sociale: ";
-    std::cin >> std::ws;
-    std::getline(std::cin, targetAppName);
-
     Social* existingApp = nullptr;
-    for (auto a : apps) {
-        if (a->getName() == targetAppName) {
-            existingApp = dynamic_cast<Social*>(a);
-            break;
-        }
-    }
 
-    if (existingApp == nullptr) {
-        std::cout << "[Eroare] Reteaua sociala nu exista! Adminul trebuie sa o creeze.\n\n";
-        return;
+    while (existingApp == nullptr) {
+        std::cout << "Numele retelei sociale (sau 0 pentru renuntare): ";
+        std::cin >> std::ws;
+        std::getline(std::cin, targetAppName);
+
+        if (targetAppName == "exit") return;
+
+        for (auto a : apps) {
+            if (a->getName() == targetAppName) {
+                existingApp = dynamic_cast<Social*>(a);
+                break;
+            }
+        }
+
+        if (existingApp == nullptr) {
+            std::cout << "[Eroare] Aplicatia '" << targetAppName << "' nu exista!\n";
+        }
     }
 
     bool unique = false;
@@ -77,7 +80,7 @@ void AppManager::addSocialAccount() {
         unique = true;
         for (auto p : profiles) {
             if (p->getUsername() == tempUser) {
-                std::cout << "[Eroare] Username existent! Altul: ";
+                std::cout << "[Eroare] Username existent! Incearca altul.\n";
                 unique = false;
                 break;
             }
@@ -92,6 +95,7 @@ void AppManager::addSocialAccount() {
     profiles.push_back(sProf);
     std::cout << "\n[Succes] Contul pentru " << existingApp->getName() << " a fost creat.\n";
 }
+
 
 void AppManager::addCommercialAccount() {
     std::string targetAppName, tempUser;
@@ -200,9 +204,14 @@ void AppManager::displayAllProfiles() const {
         std::cout << "\nNu exista conturi inregistrate.\n";
         return;
     }
-    for (auto p : profiles) { 
-        p->display(); 
-        std::cout << "-----------------------------\n";
+    std::cout << "\n--- LISTA CONTURI UTILIZATORI ---\n";
+    for (size_t i = 0; i < profiles.size(); ++i) {
+        std::cout << i + 1 << ". ";
+        
+        // Afisarea din Profile/CommercialProfile/SocialProfile
+        profiles[i]->display(); 
+        
+        std::cout << "--------------------------------\n";
     }
 }
 void AppManager::displayAllApps() const {
@@ -214,7 +223,7 @@ void AppManager::displayAllApps() const {
     std::cout << "\n==== LISTA APLICATII DISPONIBILE ====\n";
     for (size_t i = 0; i < apps.size(); ++i) {
         std::cout << i + 1 << ". ";
-        apps[i]->display(); // Apeleaza metoda virtuala din Application/Social/Commercial
+        apps[i]->display(); 
         std::cout << "--------------------------------\n";
     }
 }
@@ -233,9 +242,7 @@ void AppManager::login() {
 
     bool found = false;
     for (auto p : profiles) {
-        // Verificam daca profilul are aplicatie setata
         if (p->getApp() != nullptr) {
-            // Verificam coincidenta: Nume Aplicatie + Username + Parola
             if (
                 p->getApp()->getName() == searchAppName && 
                 p->getUsername() == searchUser && 
@@ -245,7 +252,7 @@ void AppManager::login() {
                 
                 std::cout << "\n[SUCCESS] Autentificare reusita!\n";
                 std::cout << "Bine ai revenit, " << searchUser << "!\n";
-                p->display(); // Afisam datele contului
+                p->display(); 
                 found = true;
                 break;
             }

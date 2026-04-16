@@ -8,7 +8,7 @@ Commercial::Commercial()
 Commercial::Commercial(std::string name, std::string developer, float version, int sizeMB, 
                        std::vector<std::string> inv, float discount, int threshold, 
                        std::string reg, bool returns)
-    : Application(name,"Commercial", developer, version, sizeMB), inventory(inv), 
+    : Application(name, developer, version, sizeMB), inventory(inv), 
       premiumDiscount(discount), shippingThreshold(threshold), 
       region(reg), acceptsReturns(returns) {}
 
@@ -35,9 +35,7 @@ Commercial& Commercial::operator=(const Commercial& obj) {
 Commercial::~Commercial() {}
 
 std::istream& operator>>(std::istream& is, Commercial& obj) {
-    std::cout << "Nume Magazin: ";
-    is >> std::ws;
-    std::getline(is, obj.name);
+    is >> static_cast<Application&>(obj);
 
     std::cout << "Introdu produsele separate prin spatiu: ";
     std::string line;
@@ -68,10 +66,12 @@ std::istream& operator>>(std::istream& is, Commercial& obj) {
 }
 
 std::ostream& operator<<(std::ostream& os, const Commercial& obj) {
-    os << "Magazin: " << obj.name << " | Regiune: " << obj.region << "\n";
+    os << static_cast<const Application&>(obj) << "\n";
+    os << "Regiune: " << obj.region << "\n";
     os << "Inventar: ";
-    if (obj.inventory.empty()) os << "Gol";
-    else {
+    if (obj.inventory.empty()) {
+        os << "Gol";
+    } else {
         for (const auto& item : obj.inventory) os << "[" << item << "] ";
     }
     os << "\nReducere Premium: " << obj.premiumDiscount << "% | Prag Livrare: " << obj.shippingThreshold << "\n";
@@ -79,12 +79,10 @@ std::ostream& operator<<(std::ostream& os, const Commercial& obj) {
     return os;
 }
 
-void Commercial::displayDetails() const {
+void Commercial::display() const {
     std::cout << *this << std::endl;
 }
-void Commercial::display() const {
-    std::cout<< *this <<std::endl;
-}
+
 bool Commercial::hasProduct(std::string productName) const {
     return std::find(inventory.begin(), inventory.end(), productName) != inventory.end();
 }

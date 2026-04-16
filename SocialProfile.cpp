@@ -7,8 +7,7 @@ SocialProfile::SocialProfile() : Profile(), hasReels(false), wantsMembership(fal
 
 void SocialProfile::readData() {
     
-    std::cout << "Enter password: ";
-    std::getline(std::cin, password);
+    Profile::readData();
 
     std::cout << "How many friends do you have? ";
     std::cin >> friendsCount;
@@ -28,6 +27,6 @@ void SocialProfile::display() const {
               << " | Premium: " << (wantsMembership ? "Yes" : "No") << "\n";
 
     if (app != nullptr) {
-        app->displayDetails(); 
+        app->display(); 
     }
 }
