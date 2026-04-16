@@ -13,6 +13,25 @@ Profile::Profile(const Profile &obj)
     app = obj.app;
 }
 
+std::istream& operator>>(std::istream& is, Profile& obj) {
+    std::cout << "Username: ";
+    is >> std::ws;
+    std::getline(is, obj.username);
+
+    std::string tempPass;
+    while (true) {
+        std::cout << "Password (min. 8 chars): ";
+        is >> tempPass;
+        if (tempPass.length() >= 8) {
+            obj.password = tempPass;
+            break;
+        }
+        std::cout << "[Eroare] Parola prea scurta! Reincercati.\n";
+    }
+
+    return is;
+}
+
 Profile& Profile::operator=(const Profile &obj)
 {
     if(this != &obj)

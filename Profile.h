@@ -19,6 +19,7 @@ class Profile {
         Profile& operator=(const Profile &obj);
         virtual ~Profile();
         friend std::ostream& operator<<(std::ostream& os, const Profile& obj);
+        friend std::istream& operator>>(std::istream& is, Profile& obj);
         
         std::string getUsername() const { return username; }
         std::string getPassword() const { return password; }
@@ -29,5 +30,8 @@ class Profile {
         virtual void display() const=0;
         void setApp(Application* a) { this->app = a; }
 };
+
+std::ostream& operator<<(std::ostream& os, const Profile& obj);
+std::istream& operator>>(std::istream& is, Profile& obj);
 
 #endif

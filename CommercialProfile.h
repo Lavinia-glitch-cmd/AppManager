@@ -12,7 +12,7 @@ class CommercialProfile : public Profile{
         bool Premium;
     public:
         CommercialProfile();
-        ~CommercialProfile();
+        virtual ~CommercialProfile();
         CommercialProfile(const CommercialProfile& obj);
         CommercialProfile& operator=(const CommercialProfile& obj);
 

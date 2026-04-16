@@ -32,4 +32,7 @@ class Commercial : virtual public Application
     bool hasProduct(std::string productName) const;
 };
 
+std::ostream& operator<<(std::ostream& os, const Commercial& obj);
+std::istream& operator>>(std::istream& is, Commercial& obj);
+
 #endif

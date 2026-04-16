@@ -17,6 +17,7 @@ class Application {
         Application(const Application& obj);
         Application& operator=(const Application& obj);
         virtual ~Application();
+        
         friend std::ostream& operator<<(std::ostream& os, const Application& obj);
         friend std::istream& operator>>(std::istream& is, Application& obj);
         
@@ -25,8 +26,10 @@ class Application {
         void setName(std::string name) {this->name = name; }
         void setVersion(float version) {this->version = version; }
 
-        virtual void display() const=0;
-        //virtual void displayDetails() const = 0;
-
+        virtual void display() const = 0;
 };
+
+std::ostream& operator<<(std::ostream& os, const Application& obj);
+std::istream& operator>>(std::istream& is, Application& obj);
+
 #endif

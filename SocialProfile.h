@@ -14,6 +14,11 @@ private:
 
 public:
     SocialProfile() ;
+    virtual ~SocialProfile();
+    SocialProfile(const SocialProfile& obj);
+    SocialProfile& operator=(const SocialProfile& obj);
+    friend std::ostream& operator<<(std::ostream &os, const SocialProfile& obj);
+    friend std::istream& operator>>(std::istream &is, SocialProfile& obj);
 
     void readData() override;
     void display() const override;

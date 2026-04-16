@@ -2,9 +2,9 @@
 
 Application::Application() 
     : name("Unknown"),
-    developer("Anonymous"), 
-    version(1.0f), 
-    sizeMB(0) 
+      developer("Anonymous"), 
+      version(1.0f), 
+      sizeMB(0) 
 {}
 
 Application::Application(std::string name, std::string developer, float version, int sizeMB) 
@@ -23,33 +23,38 @@ Application::Application(const Application& other)
 
 Application& Application::operator=(const Application& obj)
 {
-    if (this == &obj)
-        return *this;
-    (*this).name=obj.name;
-    (*this).developer=obj.developer;
-    (*this).version=obj.version;
-    (*this).sizeMB=obj.sizeMB;
-
+    if (this != &obj) {
+        this->name = obj.name;
+        this->developer = obj.developer;
+        this->version = obj.version;
+        this->sizeMB = obj.sizeMB;
+    }
     return *this;
 }
 
-Application::~Application(){}
+Application::~Application() {}
 
 std::ostream& operator<<(std::ostream& os, const Application& obj)
 {
-    os << "Application: " << obj.name<<"Developer: " << obj.developer<< " | v" << obj.version << " | Size: " << obj.sizeMB<< "MB";
+    os << "Application: " << obj.name << " | Developer: " << obj.developer 
+       << " | v" << obj.version << " | Size: " << obj.sizeMB << "MB";
     return os;
 }
 
 std::istream& operator>>(std::istream& is, Application& obj)
 {
     std::cout << "Enter app name: ";
-    is >> obj.name;
+    is >> std::ws;
+    std::getline(is, obj.name);
+    
     std::cout << "Enter developer: ";
-    is >> obj.developer;
+    std::getline(is, obj.developer);
+    
     std::cout << "Enter version: ";
     is >> obj.version;
-    std::cout << "Enter size: ";
+    
+    std::cout << "Enter size (MB): ";
     is >> obj.sizeMB;
+    
     return is;
-}       
+}

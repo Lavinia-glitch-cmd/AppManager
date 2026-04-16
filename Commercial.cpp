@@ -12,13 +12,10 @@ Commercial::Commercial(std::string name, std::string developer, float version, i
       premiumDiscount(discount), shippingThreshold(threshold), 
       region(reg), acceptsReturns(returns) {}
 
-Commercial::Commercial(const Commercial& obj) : Application(obj) {
-    this->inventory = obj.inventory;
-    this->premiumDiscount = obj.premiumDiscount;
-    this->shippingThreshold = obj.shippingThreshold;
-    this->region = obj.region;
-    this->acceptsReturns = obj.acceptsReturns;
-}
+Commercial::Commercial(const Commercial& obj) 
+    : Application(obj), inventory(obj.inventory), premiumDiscount(obj.premiumDiscount), 
+      shippingThreshold(obj.shippingThreshold), region(obj.region), acceptsReturns(obj.acceptsReturns) 
+{}
 
 Commercial& Commercial::operator=(const Commercial& obj) {
     if (this != &obj) {
