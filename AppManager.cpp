@@ -23,7 +23,7 @@ void AppManager::createApp() {
     std::cin >> typeChoice;
 
     Application* newApp = nullptr;
-
+    try{
     switch (typeChoice) {
         case 1: {
             Commercial* cApp = new Commercial();
@@ -53,6 +53,11 @@ void AppManager::createApp() {
         apps.push_back(newApp);
         std::cout << "[OK] Aplicatia '" << newApp->getName() << "' a fost creata.\n";
     }
+    } catch (const std::exception &e) 
+        {
+            std::cout<<"Eroare: " <<e.what()<<'\n';
+            delete newApp;
+        }
 }
 
 void AppManager::addSocialAccount() {
@@ -77,35 +82,32 @@ void AppManager::addSocialAccount() {
             std::cout << "[Eroare] Aplicatia '" << targetAppName << "' nu exista!\n";
         }
     }
-
-    bool unique = false;
-    while (!unique) {
+    try {
         std::cout << "Username: ";
         std::getline(std::cin, tempUser);
-        unique = true;
+        
         for (auto p : profiles) {
-            if (p->getUsername() == tempUser) {
-                std::cout << "[Eroare] Username existent! Incearca altul.\n";
-                unique = false;
-                break;
-            }
+            if (p->getUsername() == tempUser) throw std::runtime_error("Usernameul deja exista.");
         }
-    }
 
-    SocialProfile* sProf = new SocialProfile();
-    sProf->setApp(existingApp);
-    sProf->setUsername(tempUser);
-    sProf->readData();
+        SocialProfile* sProf = new SocialProfile();
+        sProf->setApp(existingApp);
+        sProf->setUsername(tempUser);
+        sProf->readData(); 
 
-    profiles.push_back(sProf);
-    std::cout << "\n[Succes] Contul pentru " << existingApp->getName() << " a fost creat.\n";
+        profiles.push_back(sProf);
+        std::cout << "[OK] Cont creat.\n";
+    } catch (const std::exception& e) 
+        {
+            std::cout << "[Eroare]: " << e.what() << "\n";
+        }
+
 }
 
 void AppManager::addCommercialAccount() {
     std::string targetAppName, tempUser;
     Commercial* existingApp = nullptr;
 
-    // ADAUGAT: Bucla while ca sa nu te scoata in meniu la greseala
     while (existingApp == nullptr) {
         std::cout << "Numele aplicatiei comerciale (sau 'exit' pentru renuntare): ";
         std::cin >> std::ws;
@@ -125,27 +127,26 @@ void AppManager::addCommercialAccount() {
         }
     }
 
-    bool unique = false;
-    while (!unique) {
+    try {
         std::cout << "Username: ";
         std::getline(std::cin, tempUser);
-        unique = true;
+        
         for (auto p : profiles) {
-            if (p->getUsername() == tempUser) {
-                std::cout << "[Eroare] Username existent! Incearca altul.\n";
-                unique = false;
-                break;
-            }
+            if (p->getUsername() == tempUser) throw std::runtime_error("Usernameul deja exista.");
         }
+
+        CommercialProfile* cProf = new CommercialProfile();
+        cProf->setApp(existingApp);
+        cProf->setUsername(tempUser);
+        cProf->readData();
+
+        profiles.push_back(cProf);
+        std::cout << "[OK] Cont creat.\n";
     }
-
-    CommercialProfile* cProf = new CommercialProfile();
-    cProf->setApp(existingApp);
-    cProf->setUsername(tempUser);
-    cProf->readData();
-
-    profiles.push_back(cProf);
-    std::cout << "\n[Succes] Contul pentru " << existingApp->getName() << " a fost creat.\n";
+    catch (const std::exception& e) 
+        {
+            std::cout << "[Eroare]: " << e.what() << "\n";
+        }
 }
 
 void AppManager::runMenu() {
@@ -233,7 +234,7 @@ void AppManager::login() {
                 std::cout << "\n[SUCCESS] Autentificare reusita!\n";
                 p->display(); 
                 found = true;
-                break;
+                return;
             }
         }
     }

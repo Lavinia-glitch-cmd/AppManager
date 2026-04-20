@@ -40,45 +40,42 @@ std::ostream& operator<<(std::ostream& os, const SocialProfile& obj) {
 std::istream& operator>>(std::istream& is, SocialProfile& obj) {
     is >> static_cast<Profile&>(obj);
     
+    int tempFriends;
+    bool tempReels, tempMembership;
+    std::string tempBio;
+    try 
+    {
     std::cout << "Friends count: ";
-    is >> obj.friendsCount;
+    if (!(is >> tempFriends )) throw std::invalid_argument("Numar invalid"); 
     
     std::cout << "Has reels? (1/0): ";
-    is >> obj.hasReels;
+    if (!(is >> tempReels )) throw std::invalid_argument("Numar invalid"); 
     
     std::cout << "Wants membership? (1/0): ";
-    is >> obj.wantsMembership;
+    if (!(is >> tempMembership )) throw std::invalid_argument("Numar invalid"); 
     
     std::cout << "Enter bio: ";
     is >> std::ws;
-    std::getline(is, obj.bio);
+    std::getline(is, tempBio);
+
+    obj.friendsCount=tempFriends;
+    obj.hasReels=tempReels;
+    obj.wantsMembership=tempMembership;
+    obj.bio=tempBio;
     
+    }catch(const std::exception &e)
+    {
+        is.clear();
+        is.ignore(1000, '\n');
+        throw;
+    }
     return is;
 }
 
-
 void SocialProfile::readData() {
-    
-    Profile::readData();
-
-    std::cout << "How many friends do you have? ";
-    std::cin >> friendsCount;
-
-    std::cout << "Does it have reels? (1-Yes / 0-No): ";
-    std::cin >> hasReels;
-
-    std::cout << "Do you want a membership? (1-Yes / 0-No): ";
-    std::cin >> wantsMembership;
+    std::cin >> *this;
 }
 
 void SocialProfile::display() const {
-    std::cout << "\n--- SOCIAL ACCOUNT DETAILS ---\n";
-    std::cout << "User: " << username << "\n";
-    std::cout << "Friends: " << friendsCount << "\n";
-    std::cout << "Features: " << (hasReels ? "Reels Active" : "No Reels") 
-              << " | Premium: " << (wantsMembership ? "Yes" : "No") << "\n";
-
-    if (app != nullptr) {
-        app->display(); 
-    }
+    std::cout << *this << std::endl;
 }

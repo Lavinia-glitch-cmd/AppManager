@@ -34,30 +34,45 @@ Commercial::~Commercial() {}
 std::istream& operator>>(std::istream& is, Commercial& obj) {
     is >> static_cast<Application&>(obj);
 
-    std::cout << "Introdu produsele separate prin spatiu: ";
-    std::string line;
-    is >> std::ws;
-    std::getline(is, line);
-    
-    std::stringstream ss(line);
-    std::string tempProduct;
-    obj.inventory.clear();
-    while (ss >> tempProduct) {
-        obj.inventory.push_back(tempProduct);
+    std::string line, tempRegion;
+    float tempDiscount;
+    int tempThreshold;
+    bool tempReturns;
+    std::vector<std::string> tempInventory;
+
+    try {
+        std::cout << "Introdu produsele (separate prin spatiu): ";
+        is >> std::ws;
+        std::getline(is, line);
+        std::stringstream ss(line);
+        std::string p;
+        while (ss >> p) tempInventory.push_back(p);
+
+        std::cout << "Reducere Premium (%): ";
+        if (!(is >> tempDiscount)) throw std::invalid_argument("Reducerea trebuie sa fie numar.");
+        if (tempDiscount < 0 || tempDiscount > 100) throw std::out_of_range("Reducere invalida (0-100).");
+
+        std::cout << "Prag Transport Gratuit: ";
+        if (!(is >> tempThreshold)) throw std::invalid_argument("Pragul trebuie sa fie numar.");
+
+        std::cout << "Regiune: ";
+        is >> std::ws;
+        std::getline(is, tempRegion);
+
+        std::cout << "Accepta retur? (1-Da / 0-Nu): ";
+        if (!(is >> tempReturns)) throw std::invalid_argument("Optiune retur invalida.");
+
+        obj.inventory = tempInventory;
+        obj.premiumDiscount = tempDiscount;
+        obj.shippingThreshold = tempThreshold;
+        obj.region = tempRegion;
+        obj.acceptsReturns = tempReturns;
+
+    } catch (const std::exception& e) {
+         is.clear();
+        is.ignore(1000, '\n');
+         throw; 
     }
-
-    std::cout << "Reducere Premium (%): ";
-    is >> obj.premiumDiscount;
-
-    std::cout << "Prag Transport Gratuit: ";
-    is >> obj.shippingThreshold;
-
-    std::cout << "Regiune: ";
-    is >> std::ws;
-    std::getline(is, obj.region);
-
-    std::cout << "Accepta retur? (1-Da / 0-Nu): ";
-    is >> obj.acceptsReturns;
 
     return is;
 }

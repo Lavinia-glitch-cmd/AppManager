@@ -23,7 +23,19 @@ std::ostream& operator<<(std::ostream& os, const Social& obj) {
     return os;
 }
 
-std::istream& operator>>(std::istream& is, Social& obj) {    
-    is >> static_cast<Application&>(obj);
+std::istream& operator>>(std::istream &is, Social &obj) 
+{
+    try
+    {
+        is>>static_cast<Application&>(obj);
+
+    }
+
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+        throw;
+    }
     return is;
+    
 }

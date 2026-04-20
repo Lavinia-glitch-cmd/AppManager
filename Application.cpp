@@ -1,5 +1,5 @@
 #include "Application.h"
-
+#include <stdexcept>
 Application::Application() 
     : name("Unknown"),
       developer("Anonymous"), 
@@ -43,18 +43,47 @@ std::ostream& operator<<(std::ostream& os, const Application& obj)
 
 std::istream& operator>>(std::istream& is, Application& obj)
 {
-    std::cout << "Enter app name: ";
-    is >> std::ws;
-    std::getline(is, obj.name);
-    
-    std::cout << "Enter developer: ";
-    std::getline(is, obj.developer);
-    
-    std::cout << "Enter version: ";
-    is >> obj.version;
-    
-    std::cout << "Enter size (MB): ";
-    is >> obj.sizeMB;
-    
+    std::string tempName, tempDev;
+    float tempVer;
+    int tempSize;
+
+    try {
+        std::cout << "Enter app name: ";
+        is >> std::ws;
+        if (!std::getline(is, tempName) || tempName.empty()) {
+            throw std::runtime_error("Introdu numele aplicatiei!!!");
+        }
+
+        std::cout << "Enter developer: ";
+        if (!std::getline(is, tempDev) || tempDev.empty()) {
+            throw std::runtime_error("Introdu numele developerului!!!");
+        }
+
+        std::cout << "Enter version: ";
+        if (!(is >> tempVer)) {
+            is.clear();
+            is.ignore(1000, '\n');
+            throw std::invalid_argument("Versiunea trebuie sa fie un numar (ex: 1.2)!");
+        }
+
+        std::cout << "Enter size (MB): ";
+        if (!(is >> tempSize)) {
+            is.clear();
+            is.ignore(1000, '\n');
+            throw std::invalid_argument("Dimensiunea trebuie sa fie un numar!!!");
+        }
+        
+        
+        obj.name = tempName;
+        obj.developer = tempDev;
+        obj.version = tempVer;
+        obj.sizeMB = tempSize;
+
+    } catch (const std::exception& e) {
+        std::cerr << "Eroare: " << e.what() << std::endl;
+         
+        throw; 
+    }
+
     return is;
 }
